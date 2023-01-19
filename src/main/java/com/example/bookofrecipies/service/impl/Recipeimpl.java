@@ -8,7 +8,6 @@ import java.util.*;
 
 public class Recipeimpl implements RecipeService {
     private static Map<Long, Recipe> addRecipe = new TreeMap<>();
-    private static Map<Long, Ingridients> addIngr = new TreeMap<>();
     private static long id = 0;
 
     @Override
@@ -45,6 +44,10 @@ public class Recipeimpl implements RecipeService {
             return true;
         }
         return false;
+    }
+    @Override
+    public void getAllRecipe() {
+        ArrayList<Map.Entry<Long, Recipe>> allRecipe = new ArrayList<>(addRecipe.entrySet());
     }
 
 }
