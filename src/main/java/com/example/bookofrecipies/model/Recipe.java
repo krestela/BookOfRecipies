@@ -3,15 +3,14 @@ package com.example.bookofrecipies.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Data
 @AllArgsConstructor
 public class Recipe {
     private String name;
     private int time;
-    private Ingridients ingridients;
+    private List <Ingridients> ingridients = new ArrayList<>();
     private List steps = new ArrayList<>();
 
 }
