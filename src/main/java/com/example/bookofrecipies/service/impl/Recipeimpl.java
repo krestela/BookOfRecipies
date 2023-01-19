@@ -19,9 +19,9 @@ public class Recipeimpl implements RecipeService {
     @Override
     public Recipe getRecipe(long id) {
         for (Map<Long, Recipe> getRecipes : addRecipe.values()) {
-            Recipe recipe1 = getRecipes.get(id);
-            if (recipe1 != null) {
-                return recipe1;
+            Recipe recipe = getRecipes.get(id);
+            if (recipe != null) {
+                return recipe;
             }
         }
         return null;
