@@ -15,14 +15,14 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @PostMapping("/newrecipe")
+    @PostMapping("/newRecipe")
     public ResponseEntity<Long> addNewRecipe(@RequestBody Recipe recipe) {
         long id = recipeService.addNewRecipe(recipe);
         return ResponseEntity.ok().body(id);
     }
 
-    @GetMapping()
-    public ResponseEntity<Recipe>getRecipe(@RequestParam long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Recipe>getRecipe(@PathVariable long id) {
         Recipe recipe= recipeService.getRecipe(id);
         if (recipe == null){
             return ResponseEntity.notFound().build();

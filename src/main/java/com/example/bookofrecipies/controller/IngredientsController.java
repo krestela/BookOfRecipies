@@ -3,6 +3,7 @@ package com.example.bookofrecipies.controller;
 import com.example.bookofrecipies.model.Ingridients;
 import com.example.bookofrecipies.service.IngredientsService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -17,8 +18,8 @@ public class IngredientsController {
         ingredientsService.addNewIngredient(ingridients);
     }
 
-    @GetMapping("/getingr")
-    public void getIngredient(@RequestParam int numberId) {
-        ingredientsService.getIngredient(numberId);
+    @GetMapping("/{id}")
+    public void getIngredient(@PathVariable long id) {
+        ingredientsService.getIngredient(id);
     }
 }

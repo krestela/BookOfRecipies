@@ -2,13 +2,11 @@ package com.example.bookofrecipies.service.impl;
 
 import com.example.bookofrecipies.model.Ingridients;
 import com.example.bookofrecipies.model.Recipe;
-import com.example.bookofrecipies.service.IngredientsService;
 import com.example.bookofrecipies.service.RecipeService;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
-public class BookOfRecipeimpl implements RecipeService, IngredientsService {
+public class Recipeimpl implements RecipeService {
     private static Map<Long, Recipe> addRecipe = new TreeMap<>();
     private static Map<Long, Ingridients> addIngr = new TreeMap<>();
     private static long id = 0;
@@ -16,7 +14,7 @@ public class BookOfRecipeimpl implements RecipeService, IngredientsService {
     @Override
     public long addNewRecipe(Recipe recipe) {
         addRecipe.put(id++, recipe);
-        return 0;
+        return id++;
     }
 
     @Override
@@ -29,19 +27,24 @@ public class BookOfRecipeimpl implements RecipeService, IngredientsService {
         }
         return null;
     }
+
     @Override
-    public void addNewIngredient(Ingridients ingridients) {
-        addIngr.put(id++, ingridients);
-    }
-    @Override
-    public Ingridients getIngredient(long id) {
-        for (Map<Long, Ingridients> ingredient : addIngr.values()) {
-            Ingridients ingridients = ingredient.get(id);
-            if (ingridients != null) {
-                return ingridients;
-            }
+    public Recipe editRecipe(long id, Recipe recipe) {
+
+        if (addRecipe.containsKey(id)) {
+            addRecipe.put(id, recipe);
+            return recipe;
         }
         return null;
+    }
+
+    @Override
+    public boolean deleteRecipe(long id) {
+        if (addRecipe.containsKey(id)) {
+            addRecipe.remove(id);
+            return true;
+        }
+        return false;
     }
 
 }
