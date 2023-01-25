@@ -62,3 +62,4 @@ public class IngredientsController {
         return ingredientsService.getAllIngredient();
     }
 }
+//
