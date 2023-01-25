@@ -2,6 +2,8 @@ package com.example.bookofrecipies.service;
 
 import com.example.bookofrecipies.model.Recipe;
 
+import java.util.Collection;
+
 public interface RecipeService {
 
     long addNewRecipe(Recipe recipe);
@@ -12,5 +14,5 @@ public interface RecipeService {
 
     boolean deleteRecipe(long id);
 
-    void getAllRecipe();
+    Collection<Recipe> getAllRecipe();
 }

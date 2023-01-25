@@ -8,13 +8,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+
 @RestController
 @RequestMapping("/recipe")
 @Tag(name = "Рецепт", description = "Рецепты и методы с ними")
 public class RecipeController {
     private RecipeService recipeService;
 
-    public RecipeController(RecipeService recipeService) {
+    public RecipeController(@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection") RecipeService recipeService) {
         this.recipeService = recipeService;
     }
 
@@ -53,8 +55,8 @@ public class RecipeController {
     }
     @GetMapping("/all")
     @Operation(description = "Получение списка всех игредиентов")
-    public void getAllRecipe() {
-        recipeService.getAllRecipe();
+    public Collection<Recipe> getAllRecipe() {
+        return recipeService.getAllRecipe();
     }
 
 

@@ -2,11 +2,9 @@ package com.example.bookofrecipies.service.impl;
 
 import com.example.bookofrecipies.model.Ingridients;
 import com.example.bookofrecipies.service.IngredientsService;
+import org.webjars.NotFoundException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Ingredientimpl implements IngredientsService {
     private static Map<Long, Ingridients> addIngr = new TreeMap<>();
@@ -22,14 +20,12 @@ public class Ingredientimpl implements IngredientsService {
 
     @Override
     public Ingridients getIngredient(long id) {
-        for (Map<Long, Ingridients> ingredient : addIngr.values()) {
-            Ingridients ingridients = ingredient.get(id);
-            if (ingridients != null) {
-                return ingridients;
+            if (!addIngr.containsKey(id)) {
+                throw new NotFoundException("Ингредиент не найден");
+
             }
+            return addIngr.get(id);
         }
-        return null;
-    }
 
 
     @Override
@@ -50,7 +46,7 @@ public class Ingredientimpl implements IngredientsService {
         return false;
     }
     @Override
-    public void getAllIngredient() {
-        ArrayList<Map.Entry<Long, Ingridients>> allIngredients = new ArrayList<>(addIngr.entrySet());
+    public Collection<Ingridients> getAllIngredient() {
+        return addIngr.values();
     }
 }

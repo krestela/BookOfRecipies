@@ -1,8 +1,8 @@
 package com.example.bookofrecipies.service.impl;
 
-import com.example.bookofrecipies.model.Ingridients;
 import com.example.bookofrecipies.model.Recipe;
 import com.example.bookofrecipies.service.RecipeService;
+import org.webjars.NotFoundException;
 
 import java.util.*;
 
@@ -18,13 +18,11 @@ public class Recipeimpl implements RecipeService {
 
     @Override
     public Recipe getRecipe(long id) {
-        for (Map<Long, Recipe> getRecipes : addRecipe.values()) {
-            Recipe recipe = getRecipes.get(id);
-            if (recipe != null) {
-                return recipe;
-            }
+        if (!addRecipe.containsKey(id)) {
+            throw new NotFoundException("Рецепт не найден");
+
         }
-        return null;
+        return addRecipe.get(id);
     }
 
     @Override
@@ -46,8 +44,8 @@ public class Recipeimpl implements RecipeService {
         return false;
     }
     @Override
-    public void getAllRecipe() {
-        ArrayList<Map.Entry<Long, Recipe>> allRecipe = new ArrayList<>(addRecipe.entrySet());
+    public Collection<Recipe> getAllRecipe() {
+        return addRecipe.values();
     }
 
 }

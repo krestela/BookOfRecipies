@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 
 @RestController
@@ -18,7 +19,7 @@ import java.util.Map;
 public class IngredientsController {
     private IngredientsService ingredientsService;
 
-    public IngredientsController(IngredientsService ingredientsService) {
+    public IngredientsController(@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection") IngredientsService ingredientsService) {
         this.ingredientsService = ingredientsService;
     }
     @PostMapping("/addingr")
@@ -57,7 +58,7 @@ public class IngredientsController {
     }
     @GetMapping("/all")
     @Operation(description = "Получение списка всех игредиентов")
-    public void getAllIngredient() {
-        ingredientsService.getAllIngredient();
+    public Collection<Ingridients> getAllIngredient() {
+        return ingredientsService.getAllIngredient();
     }
 }
