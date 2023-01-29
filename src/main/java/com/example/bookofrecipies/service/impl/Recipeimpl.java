@@ -1,18 +1,35 @@
 package com.example.bookofrecipies.service.impl;
 
 import com.example.bookofrecipies.model.Recipe;
+import com.example.bookofrecipies.service.FileService;
 import com.example.bookofrecipies.service.RecipeService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
-
+@Service
 public class Recipeimpl implements RecipeService {
-    private static Map<Long, Recipe> addRecipe = new TreeMap<>();
+    final private FileService fileService;
+    private static TreeMap<Long, Recipe> addRecipe = new TreeMap<>();
     private static long id = 0;
+
+    public Recipeimpl(FileService fileService) {
+        this.fileService = fileService;
+    }
+
+    @PostConstruct
+    private void init(){
+        readFromFile();
+    }
 
     @Override
     public long addNewRecipe(Recipe recipe) {
         addRecipe.put(id++, recipe);
+        saveToFile();
         return id++;
     }
 
@@ -46,6 +63,25 @@ public class Recipeimpl implements RecipeService {
     @Override
     public Collection<Recipe> getAllRecipe() {
         return addRecipe.values();
+    }
+
+    private void saveToFile(){
+        try {
+           String json = new ObjectMapper().writeValueAsString(addRecipe);
+           fileService.saveToFile(json);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void readFromFile(){
+
+        try {
+            String json = fileService.readToFile();
+            addRecipe = new ObjectMapper().readValue(json, new TypeReference<TreeMap<Long, Recipe>>() {
+            });
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

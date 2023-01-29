@@ -1,9 +1,10 @@
 package com.example.bookofrecipies.service;
 
 import com.example.bookofrecipies.model.Ingridients;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-
+@Component
 public interface IngredientsService {
 
     Collection<Ingridients> getAllIngredient();
