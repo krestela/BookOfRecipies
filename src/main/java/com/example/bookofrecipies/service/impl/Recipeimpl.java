@@ -1,5 +1,6 @@
 package com.example.bookofrecipies.service.impl;
 
+import com.example.bookofrecipies.exception.IngredientException;
 import com.example.bookofrecipies.model.Recipe;
 import com.example.bookofrecipies.service.FileService;
 import com.example.bookofrecipies.service.RecipeService;
@@ -46,11 +47,13 @@ public class Recipeimpl implements RecipeService {
     @Override
     public Recipe editRecipe(long id, Recipe recipe) {
 
-        if (addRecipe.containsKey(id)) {
-            addRecipe.put(id, recipe);
-            return recipe;
+        if (addRecipe.containsValue(recipe)) {
+            throw new NotFoundException("Id не найден");
+
         }
-        return null;
+        addRecipe.put(id, recipe);
+        saveToFile();
+        return recipe;
     }
 
     @Override

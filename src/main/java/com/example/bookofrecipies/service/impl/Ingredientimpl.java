@@ -43,7 +43,7 @@ public class Ingredientimpl implements IngredientsService {
     @Override
     public Ingredients editIngredients(long id, Ingredients ingredients) throws IngredientException {
         if (addIngr.containsValue(ingredients)) {
-            throw new IngredientException();
+            throw new IngredientException("Id не найден");
         }
         addIngr.containsKey(id);
         addIngr.put(id, ingredients);
