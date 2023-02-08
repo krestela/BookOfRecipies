@@ -10,7 +10,13 @@ import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
+
 @Service
 public class Recipeimpl implements RecipeService {
     final private FileService fileService;
@@ -19,11 +25,6 @@ public class Recipeimpl implements RecipeService {
 
     public Recipeimpl(FileService fileService) {
         this.fileService = fileService;
-    }
-
-    @PostConstruct
-    private void init(){
-        readFromFile();
     }
 
     @Override
@@ -60,20 +61,23 @@ public class Recipeimpl implements RecipeService {
         }
         return false;
     }
+
     @Override
     public Collection<Recipe> getAllRecipe() {
         return addRecipe.values();
     }
 
-    private void saveToFile(){
+    private void saveToFile() {
         try {
-           String json = new ObjectMapper().writeValueAsString(addRecipe);
-           fileService.saveToFile(json);
+            String json = new ObjectMapper().writeValueAsString(addRecipe);
+            fileService.saveToFile(json);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }
-    private void readFromFile(){
+
+
+    private void readFromFile() {
 
         try {
             String json = fileService.readToFile();

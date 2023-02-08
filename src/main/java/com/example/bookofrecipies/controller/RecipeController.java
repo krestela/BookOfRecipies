@@ -1,22 +1,23 @@
 package com.example.bookofrecipies.controller;
 
-import com.example.bookofrecipies.model.Ingridients;
 import com.example.bookofrecipies.model.Recipe;
 import com.example.bookofrecipies.service.RecipeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
 @RestController
+@Service
 @RequestMapping("/recipe")
 @Tag(name = "Рецепт", description = "Рецепты и методы с ними")
 public class RecipeController {
     private RecipeService recipeService;
 
-    public RecipeController(@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection") RecipeService recipeService) {
+    public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
 

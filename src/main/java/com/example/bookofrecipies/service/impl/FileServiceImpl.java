@@ -4,7 +4,7 @@ import com.example.bookofrecipies.service.FileService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,16 +31,18 @@ public class FileServiceImpl implements FileService {
         }
 
     }
+
     @Override
     public String readToFile() {
         try {
             return Files.readString(Path.of(dataRecipeFile, dataRecipeName)) +
-            Files.readString(Path.of(dataIngrFile, dataIngrName));
+                    Files.readString(Path.of(dataIngrFile, dataIngrName));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
     }
+
     @Override
     public boolean cleanDataFile() {
         try {
@@ -56,4 +58,17 @@ public class FileServiceImpl implements FileService {
             return false;
         }
     }
+
+    @Override
+    public File getDataFileRecipe() {
+        File recipe = new File(dataRecipeFile + "/" + dataRecipeName);
+        return recipe;
+    }
+
+    @Override
+    public File getDataFileIngredient() {
+        File ingr = new File(dataIngrFile + "/" + dataIngrName);
+        return ingr;
+    }
+
 }

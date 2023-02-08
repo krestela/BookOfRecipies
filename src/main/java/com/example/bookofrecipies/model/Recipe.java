@@ -12,7 +12,7 @@ import java.util.*;
 public class Recipe {
     private String name;
     private int time;
-    private List <Ingridients> ingridients = new ArrayList<>();
+    private List <Ingredients> ingridients = new ArrayList<>();
     private List steps = new ArrayList<>();
 
 }

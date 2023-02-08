@@ -1,18 +1,21 @@
 package com.example.bookofrecipies.service;
 
-import com.example.bookofrecipies.model.Ingridients;
+import com.example.bookofrecipies.exception.IngredientException;
+import com.example.bookofrecipies.model.Ingredients;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 @Component
+@Service
 public interface IngredientsService {
 
-    Collection<Ingridients> getAllIngredient();
+    Collection<Ingredients> getAllIngredient();
 
-    long addNewIngredient(Ingridients ingridients);
-    Ingridients getIngredient(long id);
+    long addNewIngredient(Ingredients ingredients);
+    Ingredients getIngredient(long id);
 
-    Ingridients editIngredients(long id, Ingridients ingridients);
+    Ingredients editIngredients(long id, Ingredients ingredients) throws IngredientException;
 
     boolean deleteIngrediends(long id);
 }
