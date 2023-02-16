@@ -55,7 +55,6 @@ public class FilesController {
 
     @PostMapping(value = "/importRecipe", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> uploadRecipeFile(@RequestParam MultipartFile file) {
-        fileService.cleanDataFile();
         File dataFile = fileService.getDataFileRecipe();
 
         try (FileOutputStream fos = new FileOutputStream(dataFile)) {
