@@ -18,4 +18,5 @@ public interface FileService {
 
     File getDataFileIngredient();
 
+    Path createTempFile(String suffix);
 }

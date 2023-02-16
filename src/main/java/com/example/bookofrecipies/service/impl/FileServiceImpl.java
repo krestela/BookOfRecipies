@@ -70,5 +70,13 @@ public class FileServiceImpl implements FileService {
         File ingr = new File(dataIngrFile + "/" + dataIngrName);
         return ingr;
     }
+    @Override
+    public Path createTempFile(String suffix){
+        try {
+            return Files.createTempFile(Path.of(dataRecipeFile), "tempFile", suffix);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+    }
 }

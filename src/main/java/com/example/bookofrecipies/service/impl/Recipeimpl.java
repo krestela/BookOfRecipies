@@ -1,6 +1,5 @@
 package com.example.bookofrecipies.service.impl;
 
-import com.example.bookofrecipies.exception.IngredientException;
 import com.example.bookofrecipies.model.Recipe;
 import com.example.bookofrecipies.service.FileService;
 import com.example.bookofrecipies.service.RecipeService;
@@ -10,9 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
-import javax.annotation.PostConstruct;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -89,6 +86,19 @@ public class Recipeimpl implements RecipeService {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Path createRecipeText() throws IOException {
+        addRecipe.getOrDefault(id, null);
+        Path path = fileService.createTempFile("recipes");
+        for (Recipe recipe2 : addRecipe.values()) {
+            try (Writer writer = Files.newBufferedWriter(path, StandardOpenOption.APPEND)) {
+                writer.append(recipe2.getName() + ": " + recipe2.getTime() + ": " + recipe2.getIngridients() + ": " + recipe2.getSteps());
+
+            }
+        }
+        return path;
     }
 
 }
