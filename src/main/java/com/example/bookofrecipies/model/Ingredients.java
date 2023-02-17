@@ -2,10 +2,12 @@ package com.example.bookofrecipies.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class Ingridients {
+@NoArgsConstructor
+public class Ingredients {
 private String name;
 private int quantity;
 private int measure;
