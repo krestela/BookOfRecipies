@@ -49,17 +49,17 @@ public class RecipeController {
     }
 
     @GetMapping("/recipe")
-    public ResponseEntity<Object> createRecipeText(@PathVariable Recipe recipe){
+    public ResponseEntity<Object> createRecipeText(){
         try {
             Path path = recipeService.createRecipeText();
-            if (Files.size(path) != 0){
+            if (Files.size(path) == 0){
                 return ResponseEntity.noContent().build();
             }
                 InputStreamResource resource1 = new InputStreamResource(new FileInputStream(path.toFile()));
                 return ResponseEntity.ok()
                         .contentType(MediaType.TEXT_PLAIN)
-                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"AllRecipe.json\"")
                         .contentLength(Files.size(path))
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"AllRecipe.txt\"")
                         .body(resource1);
         }catch (IOException e){
             e.printStackTrace();

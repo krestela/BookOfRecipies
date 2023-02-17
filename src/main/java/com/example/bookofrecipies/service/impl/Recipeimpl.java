@@ -1,5 +1,6 @@
 package com.example.bookofrecipies.service.impl;
 
+import com.example.bookofrecipies.model.Ingredients;
 import com.example.bookofrecipies.model.Recipe;
 import com.example.bookofrecipies.service.FileService;
 import com.example.bookofrecipies.service.RecipeService;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -91,10 +93,14 @@ public class Recipeimpl implements RecipeService {
     @Override
     public Path createRecipeText() throws IOException {
         addRecipe.getOrDefault(id, null);
-        Path path = fileService.createTempFile("recipes");
-        for (Recipe recipe2 : addRecipe.values()) {
-            try (Writer writer = Files.newBufferedWriter(path, StandardOpenOption.APPEND)) {
-                writer.append(recipe2.getName() + ": " + recipe2.getTime() + ": " + recipe2.getIngridients() + ": " + recipe2.getSteps());
+        Path path = fileService.createTempFile("allRecipe");
+        try (Writer writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
+        for (Recipe recipe : addRecipe.values()) {
+            StringBuilder ingr = new StringBuilder();
+            for (Ingredients ingredients : recipe.getIngridients()){
+                ingr.append(ingredients).append(",\n");
+;            }
+                writer.append(recipe.getName() + ": " + recipe.getTime() + ": " + recipe.getIngridients() + ": " + recipe.getSteps());
 
             }
         }
